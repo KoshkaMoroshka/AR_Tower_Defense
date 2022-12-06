@@ -5,7 +5,7 @@ public class TowerBullet : MonoBehaviour
 {
 
     public float Speed;
-    public Transform target;
+    public Vector3 target;
     public GameObject impactParticle; // bullet impact
 
     public Vector3 impactNormal;
@@ -15,7 +15,7 @@ public class TowerBullet : MonoBehaviour
 
     private void Start()
     {
-        target = GameObject.FindGameObjectWithTag("Aim").transform;
+        target = GameObject.FindGameObjectWithTag("Aim").transform.position;
     }
 
     private void Update()
@@ -23,12 +23,12 @@ public class TowerBullet : MonoBehaviour
 
         // Bullet move
 
-        if (target)
+        if (target != null)
         {
 
             transform.LookAt(target);
-            transform.position = Vector3.MoveTowards(transform.position, target.position, Time.deltaTime * Speed);
-            lastBulletPosition = target.transform.position;
+            transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * Speed);
+            lastBulletPosition = target;
 
         }
 
@@ -55,21 +55,19 @@ public class TowerBullet : MonoBehaviour
         }
     }
 
-    // Bullet hit
-
-    private void OnTriggerEnter(Collider other) // tower`s hit if bullet reached the enemy
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.transform == target)
+        if (other.TryGetComponent<GoblinMovment>(out var goblin))
         {
-            target.GetComponent<EnemyHp>().Dmg(twr.dmg);
-            Destroy(gameObject, i); // destroy bullet
-            impactParticle = Instantiate(impactParticle, target.transform.position, Quaternion.FromToRotation(Vector3.up, impactNormal)) as GameObject;
-            impactParticle.transform.parent = target.transform;
-            Destroy(impactParticle, 3);
-            return;
+            Destroy(goblin.gameObject);
+            GoblinManager.RemoveGoblin(goblin.gameObject);
         }
+        Destroy(gameObject, i); // destroy bullet
+        impactParticle = Instantiate(impactParticle, target, Quaternion.FromToRotation(Vector3.up, impactNormal)) as GameObject;
+        impactParticle.transform.parent.position = target;
+        Destroy(impactParticle, 3);
+        return;
     }
-
 }
 
 

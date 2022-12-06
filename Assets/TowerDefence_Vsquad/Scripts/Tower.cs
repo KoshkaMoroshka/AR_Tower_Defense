@@ -105,7 +105,7 @@ public class Tower : MonoBehaviour
         if (target && Catcher == false)
         {
             GameObject b = GameObject.Instantiate(bullet, shootElement.position, Quaternion.identity) as GameObject;
-            b.GetComponent<TowerBullet>().target = target;
+            b.GetComponent<TowerBullet>().target = target.position;
             b.GetComponent<TowerBullet>().twr = this;
 
         }

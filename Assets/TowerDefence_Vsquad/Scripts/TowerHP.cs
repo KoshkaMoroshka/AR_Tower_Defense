@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class TowerHP : MonoBehaviour {
 
-    public int CastleHp = 20;
+    public float CastleHp = 150;
 
-    
 
     public void Dmg_2(int DMG_2count)
     {
@@ -17,11 +16,13 @@ public class TowerHP : MonoBehaviour {
     {
         if (CastleHp <= 0)
         {
-            gameObject.tag = "Castle_Destroyed"; // send it to TowerTrigger to stop the shooting
             Destroy(gameObject);
-
         }
     }
 
-   
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "enemyBug")
+            CastleHp -= 0.3f * Time.deltaTime;
+    }
 }
