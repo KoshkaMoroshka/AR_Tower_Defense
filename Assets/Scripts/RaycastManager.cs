@@ -24,7 +24,7 @@ public class RaycastManager : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Camera.main.ViewportToScreenPoint(new Vector3(0.5f, 0.5f)));
         RaycastHit hitObject;
 
-        if (Physics.Raycast(ray, out hitObject, 25.0f))
+        if (Physics.Raycast(ray, out hitObject, 25.0f, LayerMask.GetMask("Ground")))
         {
             if (hitObject.transform.tag.Contains("Ground"))
                 _position = hitObject.point;

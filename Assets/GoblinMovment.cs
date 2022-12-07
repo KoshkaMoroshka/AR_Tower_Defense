@@ -22,12 +22,15 @@ public class GoblinMovment : MonoBehaviour
     private void Update()
     {
         if (_winFlag)
+        {
             return;
+        }
         transform.LookAt(tower.transform);
         transform.position = Vector3.MoveTowards(transform.position, tower.transform.position, Time.deltaTime * Speed);
 
-        if (tower == null)
+        if (tower.active == false)
         {
+            _anim.SetBool("Attack", false);
             _anim.SetBool("Victory", true);
             _winFlag = true;
         }

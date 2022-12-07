@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3454270349986767244, guid: ab1fc54cec59eaf4685e46a098a43dc8, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4989058654189732626, guid: ab1fc54cec59eaf4685e46a098a43dc8, type: 3}
       propertyPath: m_Name
       value: kitty

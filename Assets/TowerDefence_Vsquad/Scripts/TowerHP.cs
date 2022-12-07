@@ -16,7 +16,7 @@ public class TowerHP : MonoBehaviour {
     {
         if (CastleHp <= 0)
         {
-            Destroy(gameObject);
+            gameObject.active = false;
         }
     }
 

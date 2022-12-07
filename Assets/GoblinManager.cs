@@ -14,11 +14,12 @@ public class GoblinManager : MonoBehaviour
 
     private void Update()
     {
+        var randomPosition = Random.Range(0, spawnPoints.Count);
         if (kitty.gameObject.active && goblins.Count < 5)
         {
             if (flagSpawn)
             {
-                var goblin = Instantiate(goblinPrefab, spawnPoints[Random.Range(0, goblins.Count - 1)].position, Quaternion.identity);
+                var goblin = Instantiate(goblinPrefab, spawnPoints[randomPosition].position, Quaternion.identity);
                 goblins.Add(goblin);
                 StartCoroutine(Fade());
             }
